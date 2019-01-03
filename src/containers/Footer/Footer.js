@@ -36,7 +36,7 @@ function Footer(props) {
           Footer
         </Typography>
         <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
-          Something here to give the footer a purpose!
+          @2019 Meshui
         </Typography>
       </footer>
       {/* End footer */}

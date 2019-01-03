@@ -1,8 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
+import { NavLink } from "react-router-dom";
+
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import Divider from '@material-ui/core/Divider';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -56,7 +60,7 @@ function SignIn(props) {
           <LockIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          Sign Up
         </Typography>
         <form className={classes.form}>
           <FormControl margin="normal" required fullWidth>
@@ -67,10 +71,6 @@ function SignIn(props) {
             <InputLabel htmlFor="password">Password</InputLabel>
             <Input name="password" type="password" id="password" autoComplete="current-password" />
           </FormControl>
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
           <Button
             type="submit"
             fullWidth
@@ -80,6 +80,11 @@ function SignIn(props) {
           >
             Sign in
           </Button>
+          <Divider light />
+          You already have an account ?
+          <NavLink to="/login">
+            <Button color="inherit">Log In</Button>
+          </NavLink>
         </form>
       </Paper>
     </main>
