@@ -1,0 +1,36 @@
+/* Meshui Main Style 
+
+Table of Contents
+
+Header
+Footer
+*/
+
+/* Header */
+.header a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.header a:hover {
+  color: #4242e6;
+  background-color: #f2f2f2;
+}
+
+.header .logo {
+  color: #ffffff;
+  text-decoration: none;
+  background-color: unset;
+}
+
+.header .logo:hover {
+  color: #ffffff;
+  text-decoration: none;
+  background-color: unset;
+}
+
+/* Footer */
+.footer a {
+  text-decoration: none;
+}
+

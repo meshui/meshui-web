@@ -66,32 +66,32 @@ function Homepage(props) {
   return (
       <div>
         <Header />
-          <div className={classes.heroUnit}>
-            <div className={classes.heroContent}>
-              <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-                Mesh User Interface
-              </Typography>
-              <Typography variant="h6" align="center" color="textSecondary" paragraph>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi scelerisque,
-                 orci a gravida porta, arcu diam aliquet dui, vitae ultrices arcu risus a tortor. 
-                 Quisque eu eros vestibulum
-              </Typography>
-              <div className={classes.heroButtons}>
-                <Grid container spacing={16} justify="center">
-                  <Grid item>
-                    <Button variant="contained" color="primary">
-                      Get started
-                    </Button>
-                  </Grid>
-                  <Grid item>
-                    <Button variant="outlined" color="primary">
-                      More info
-                    </Button>
-                  </Grid>
+        <div className={classes.heroUnit}>
+          <div className={classes.heroContent}>
+            <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
+              Mesh User Interface
+            </Typography>
+            <Typography variant="h6" align="center" color="textSecondary" paragraph>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi scelerisque,
+                orci a gravida porta, arcu diam aliquet dui, vitae ultrices arcu risus a tortor. 
+                Quisque eu eros vestibulum
+            </Typography>
+            <div className={classes.heroButtons}>
+              <Grid container spacing={16} justify="center">
+                <Grid item>
+                  <Button variant="contained" color="primary">
+                    Get started
+                  </Button>
                 </Grid>
-              </div>
+                <Grid item>
+                  <Button variant="outlined" color="primary">
+                    More info
+                  </Button>
+                </Grid>
+              </Grid>
             </div>
           </div>
+        </div>
         
         <Footer />
       </div>

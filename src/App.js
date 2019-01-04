@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
 import { Redirect, BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import logo from './logo.svg';
-import './App.css';
-import Button from '@material-ui/core/Button';
-
-
 import Homepage from './views/Homepage/Homepage'
 import LogIn from './views/LogInView/LogInView'
 import SignUp from './views/SignUpView/SignUpView'
 import error from './views/Error/Error'
+
+import "./assets/css/sass/themes/meshui.light.blue.scss";
 
 class App extends Component {
   render() {

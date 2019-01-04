@@ -193,9 +193,7 @@ class PersistentDrawerLeft extends React.Component {
         <CssBaseline />
         <AppBar
           position="fixed"
-          className={classNames(classes.appBar, {
-            [classes.appBarShift]: open,
-          })}
+          className="header"
         >
           <Toolbar disableGutters={!open}>
             <IconButton
@@ -206,15 +204,21 @@ class PersistentDrawerLeft extends React.Component {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" color="inherit" noWrap>
-              Meshui
-            </Typography>
+            <NavLink to="/" className="logo">
+              <Typography variant="h6" color="inherit" noWrap>
+                Meshui
+              </Typography>
+            </NavLink>
             <Typography variant="h6" color="inherit" className={classes.grow}>
               
             </Typography>
             
-            <NavLink to="/signup">
+            <NavLink to="/apps">
               <Button color="inherit">Apps</Button>
+            </NavLink>
+
+            <NavLink to="/documentation">
+              <Button color="inherit">Documentation</Button>
             </NavLink>
 
             <NavLink to="/signup">
