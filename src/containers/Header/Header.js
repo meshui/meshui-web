@@ -418,10 +418,16 @@ class PersistentDrawerLeft extends React.Component {
             <Collapse in={this.state.openLaboratory} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
                 <ListItem button className={classes.nested}>
-                <ListItemIcon className={classes.menuIcon}>
+                  <ListItemIcon className={classes.menuIcon}>
                     <StarBorder />
                   </ListItemIcon>
                   <ListItemText inset primary="Find Food" />
+                </ListItem>
+                <ListItem button className={classes.nested}>
+                  <ListItemIcon className={classes.menuIcon}>
+                    <StarBorder />
+                  </ListItemIcon>
+                  <ListItemText inset primary="Photobooth" />
                 </ListItem>
               </List>
             </Collapse>
