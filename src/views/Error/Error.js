@@ -4,9 +4,9 @@ import Header from '../../containers/Header/Header'
 import Footer from '../../containers/Footer/Footer'
 
 class Error404 extends Component {
-  constructor(props) {
-    super(props);
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
 
   componentDidMount() {
     document.body.classList.add("background");

@@ -1,0 +1,25 @@
+.main {
+  width: auto;
+  display: block;
+  background-color: #ff0000;
+}
+
+.Auth .paper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #ff0000;
+}
+
+.Auth .avatar {
+  
+}
+
+.Auth .form {
+  width: 100%;
+  
+}
+
+.Auth .submit {
+  
+}

@@ -1,26 +1,22 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-
-import * as actions from '../../redux/actions/index'
-
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { Redirect, NavLink } from "react-router-dom";
 
-import Avatar from '@material-ui/core/Avatar'
-import Button from '@material-ui/core/Button'
-import CssBaseline from '@material-ui/core/CssBaseline'
-import Divider from '@material-ui/core/Divider'
-import FormControl from '@material-ui/core/FormControl'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
-import Checkbox from '@material-ui/core/Checkbox'
-import Input from '@material-ui/core/Input'
-import InputLabel from '@material-ui/core/InputLabel'
-import LockIcon from '@material-ui/icons/LockOutlined'
-import Paper from '@material-ui/core/Paper'
-import Typography from '@material-ui/core/Typography'
-import withStyles from '@material-ui/core/styles/withStyles'
+import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Divider from '@material-ui/core/Divider';
+import FormControl from '@material-ui/core/FormControl';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import LockIcon from '@material-ui/icons/LockOutlined';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import withStyles from '@material-ui/core/styles/withStyles';
 
-// import classes from './Auth.css'  
+import { updateObject, checkValidity } from '../../utils/form'
+
 var firebase = require("firebase/app")
 var firebaseui = require('firebaseui')
 
@@ -53,22 +49,76 @@ const styles = theme => ({
   },
   submit: {
     marginTop: theme.spacing.unit * 3,
-  }
+  },
 });
 
-class SignIn extends Component {
-
+class SignUp extends Component {
   state = {
-    isSignUp: false
+    isSignUp: false,
+    controls: {
+      email: {
+        elementType: 'input',
+        elementConfig: {
+          type: 'email',
+          placeholder: 'Your Email'
+        },
+        // value: '',
+        validation: {
+          required: true,
+          isEmail: true
+        },
+        valid: false,
+        touched: false
+      },
+      password: {
+        elementType: 'input',
+        elementConfig: {
+          type: 'password',
+          placeholder: 'Your Password'
+        },
+        // value: '',
+        validation: {
+          required: true,
+          minLength: 6
+        },
+        valid: false,
+        touched: false
+      },
+    }
   }
 
+  
+
+
+  // Change input values
+  inputChangedHandler = (event, controlName) => {
+    const updatedControls = updateObject(this.state.controls, 
+      {
+        [controlName]: updateObject(this.state.controls[controlName],
+          {
+            value: event.target.value,
+            valid: checkValidity(event.target.value, this.state.controls[controlName].validation),
+            touched: true
+          }) 
+      }
+    )
+    this.setState({controls: updatedControls})
+  }
+  
+  // Submit form
   submitHandler = (event) => {
     event.preventDefault()
-    this.props.onAuth("hello", "hello", true)
+
+    var email = this.state.controls.email.value
+    var password = this.state.controls.password.value
+    console.log(email, password)
 
     this.setState(prevState => {
       return {isSignUp: !prevState.isSignUp}
     })
+
+    // return <Redirect to="/somewhere/else" />
+    // this.context.router.history.push(`/target`)
   }
 
 
@@ -114,12 +164,14 @@ class SignIn extends Component {
 
   }
 
+
   render() {
-    const { classes } = this.props
+    const { classes } = this.props;
 
     let authRedirect = null
-    if (this.props.isAuthenticated) {
-      authRedirect = <Redirect to="/signup" />
+    //Redirect if signup
+    if (this.state.isSignUp) {
+      authRedirect = <Redirect to="/login" />
     }
 
     return (
@@ -131,21 +183,31 @@ class SignIn extends Component {
             <LockIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Log In
+            Sign Up
           </Typography>
-          <form onSubmit={this.submitHandler} className={classes.form}>
+          <form className={classes.form} onSubmit={this.submitHandler}>
             <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="email">Email Address</InputLabel>
-              <Input id="email" name="email" autoComplete="email" autoFocus />
+              <Input 
+                id="email" 
+                name="email" 
+                autoComplete="email" 
+                // value={this.state.controls.email.value}
+                autoFocus 
+                onChange={(event) => this.inputChangedHandler(event, 'email')}
+                />
             </FormControl>
             <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="password">Password</InputLabel>
-              <Input name="password" type="password" id="password" autoComplete="current-password" />
+              <Input 
+                name="password"
+                type="password"
+                id="password"
+                // value={this.state.controls.password.value}
+                autoComplete="current-password"
+                onChange={(event) => this.inputChangedHandler(event, 'password')}
+                />
             </FormControl>
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
             <Button
               type="submit"
               fullWidth
@@ -153,10 +215,13 @@ class SignIn extends Component {
               color="primary"
               className={classes.submit}
             >
-              Sign in
+              Sign Up
             </Button>
           </form>
           <Divider light />
+          <p>
+            By signing up, I agree to the Privacy Policy and <NavLink to="/terms-of-service">Terms of Service.</NavLink>
+          </p>
           <p>
             Or, sign up with 
             <Button
@@ -166,30 +231,19 @@ class SignIn extends Component {
             >Google
             </Button>
           </p>
-          You don't have an account ?
-          <NavLink to="/signup">
-            <Button color="inherit">Sign Up</Button>
+          You already have an account ?
+          <NavLink to="/login">
+            <Button color="inherit">Log In</Button>
           </NavLink>
+          
         </Paper>
       </main>
     )
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    loading: state.auth.loading,
-    error: state.auth.error,
-    isAuthenticated: state.auth.token !== null,
-    authRedirectPath: state.auth.authRedirectPath
-  }
-}
+SignUp.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onAuth: (email, password, isSignup) => dispatch(actions.auth(email, password, isSignup)),
-    onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/'))
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(SignIn))
+export default withStyles(styles)(SignUp);

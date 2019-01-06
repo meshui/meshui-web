@@ -1,18 +1,26 @@
-import React, { Component} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import { NavLink } from "react-router-dom";
 
+import Navigation from './Navigation/Navigation'
+
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import AppBar from '@material-ui/core/AppBar';
 import Avatar from '@material-ui/core/Avatar';
 import Badge from '@material-ui/core/Badge';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import Collapse from '@material-ui/core/Collapse';
+import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
+import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
@@ -33,6 +41,15 @@ const styles = theme => ({
   root: {
     display: 'flex',
   },
+  openGroups: false,
+  openOffice: false,
+  openMeetingRooms: false,
+  openTimeTracking: false,
+  openLaboratory: false,
+
+  grow: {
+    flexGrow: 1,
+  },
 
   appBar: {
     transition: theme.transitions.create(['margin', 'width'], {
@@ -48,12 +65,19 @@ const styles = theme => ({
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
+  menuButton: {
+    marginLeft: 12,
+    marginRight: 20,
+  },
   hide: {
     display: 'none',
   },
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
+  },
+  menuIcon: {
+    margin: 0,
   },
   drawerPaper: {
     width: drawerWidth,
@@ -81,9 +105,23 @@ const styles = theme => ({
     }),
     marginLeft: 0,
   },
+  badge: {
+    top: 1,
+    right: -15,
+   
+  },
+  badgeList: {
+    top: -12,
+    right: -30,
+  },
+  toolsInfo: {
+    marginTop: '10px',
+    width: '100%',
+    textAlign: 'center'
+  },
 });
 
-class Sidebar extends Component {
+class PersistentDrawerLeft extends React.Component {
   state = {
     open: false,
   };
@@ -96,6 +134,9 @@ class Sidebar extends Component {
     this.setState({ open: false });
   };
 
+  handleGroupsClick = () => {
+    this.setState(state => ({ openGroups: !state.openGroups }));
+  };
   handleOfficeClick = () => {
     this.setState(state => ({ 
       openOffice: !state.openOffice,
@@ -104,8 +145,7 @@ class Sidebar extends Component {
       openMyApps: false,
       openLaboratory: false,
     }));
-  }
-
+  };
   handleTimeTrackingClick = () => {
     this.setState(state => ({ 
       openOffice: false,
@@ -114,8 +154,7 @@ class Sidebar extends Component {
       openMyApps: false,
       openLaboratory: false,
     }));
-  }
-
+  };
   handleMeetingRoomsClick = () => {
     this.setState(state => ({ 
       openOffice: false,
@@ -124,8 +163,7 @@ class Sidebar extends Component {
       openMyApps: false,
       openLaboratory: false,
     }));
-  }
-
+  };
   handleMyAppsClick = () => {
     this.setState(state => ({ 
       openOffice: false,
@@ -134,8 +172,7 @@ class Sidebar extends Component {
       openMyApps: !state.openMyApps,
       openLaboratory: false,
     }));
-  }
-
+  };
   handleLaboratoryClick = () => {
     this.setState(state => ({ 
       openOffice: false,
@@ -144,25 +181,54 @@ class Sidebar extends Component {
       openMyApps: false,
       openLaboratory: !state.openLaboratory,
     }));
-  }
+  };
 
   render() {
     const { classes, theme } = this.props;
     const { open } = this.state;
 
     return (
-      <Drawer
+      <div className={classes.root}>
+        <CssBaseline />
+        <AppBar
+          position="fixed"
+          className="header"
+        >
+          <Toolbar disableGutters={!open}>
+            <IconButton
+              color="inherit"
+              aria-label="Open drawer"
+              onClick={this.handleDrawerOpen}
+              className={classNames(classes.menuButton, open && classes.hide)}
+            >
+              <MenuIcon />
+            </IconButton>
+            <NavLink to="/" className="logo">
+              <Typography variant="h6" color="inherit" noWrap>
+                Meshui
+              </Typography>
+            </NavLink>
+            <Typography variant="h6" color="inherit" className={classes.grow}>
+              
+            </Typography>
+            
+            {/* <Navigation isAuthenticated={props.isAuth} /> */}
+            <Navigation isAuthenticated={false} />
+
+          </Toolbar>
+        </AppBar>
+        <Drawer
           className={classes.drawer}
           variant="persistent"
           anchor="left"
-          open={this.props.open}
+          open={open}
           classes={{
             paper: classes.drawerPaper,
           }}
         >
           <div className={classes.drawerHeader}>
             <Avatar className={classes.orangeAvatar} style={{marginRight:'130px'}} onClick={this.handleGroupsClick}>CP</Avatar>
-            <IconButton onClick={this.props.closed}>
+            <IconButton onClick={this.handleDrawerClose}>
               {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
             </IconButton>
           </div>
@@ -376,13 +442,22 @@ class Sidebar extends Component {
             <BottomNavigationAction label="About" icon={<FavoriteIcon />} />
           </BottomNavigation>
         </Drawer>
+        <main
+          className={classNames(classes.content, {
+            [classes.contentShift]: open,
+          })}
+        >
+          <div className={classes.drawerHeader} />
+          
+        </main>
+      </div>
     );
   }
 }
 
-Sidebar.propTypes = {
+PersistentDrawerLeft.propTypes = {
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(Sidebar);
+export default withStyles(styles, { withTheme: true })(PersistentDrawerLeft);
