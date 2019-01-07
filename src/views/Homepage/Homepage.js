@@ -1,106 +1,80 @@
-import React from 'react';
+import React from "react";
+// nodejs library that concatenates classes
+import classNames from "classnames";
+// react components for routing our app without refresh
+import { NavLink, Link } from "react-router-dom";
+// @material-ui/core components
+import withStyles from "@material-ui/core/styles/withStyles";
+// @material-ui/icons
+// core components
+import Header from "components/Header/Header";
+import Footer from "components/Footer/Footer.jsx";
+import GridContainer from "components/Grid/GridContainer.jsx";
+import GridItem from "components/Grid/GridItem.jsx";
+import Button from "components/CustomButtons/Button.jsx";
+import Parallax from "components/Parallax/Parallax.jsx";
+// sections for this page
+import HeaderLinks from "components/Header/HeaderLinks.jsx";
 
-import PropTypes from 'prop-types';
-import Button from '@material-ui/core/Button';
+import ProductSection from "./Sections/ProductSection.js";
+import GreyBanner from "./Sections/GreyBanner";
+import SectionLink from "./Sections/SectionLink";
 
 
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
+import componentsStyle from "assets/jss/material-kit-react/views/components.jsx";
 
-import Header from '../../containers/Header/Header'
-import Footer from '../../containers/Footer/Footer'
-
-
-const styles = theme => ({
-  appBar: {
-    position: 'relative',
-  },
-  icon: {
-    marginRight: theme.spacing.unit * 2,
-  },
-  heroUnit: {
-    backgroundColor: theme.palette.background.paper,
-  },
-  heroContent: {
-    maxWidth: 600,
-    margin: '0 auto',
-    padding: `${theme.spacing.unit * 8}px 0 ${theme.spacing.unit * 6}px`,
-  },
-  heroButtons: {
-    marginTop: theme.spacing.unit * 4,
-  },
-  layout: {
-    width: 'auto',
-    marginLeft: theme.spacing.unit * 3,
-    marginRight: theme.spacing.unit * 3,
-    [theme.breakpoints.up(1100 + theme.spacing.unit * 3 * 2)]: {
-      width: 1100,
-      marginLeft: 'auto',
-      marginRight: 'auto',
-    },
-  },
-  cardGrid: {
-    padding: `${theme.spacing.unit * 8}px 0`,
-  },
-  card: {
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  cardMedia: {
-    paddingTop: '56.25%', // 16:9
-  },
-  cardContent: {
-    flexGrow: 1,
-  },
-  footer: {
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing.unit * 6,
-  },
-});
-
-function Homepage(props) {
-  const { classes } = props;
-
-  return (
+class Homepage extends React.Component {
+  render() {
+    const { classes, ...rest } = this.props;
+    return (
       <div>
-        <Header />
-        <div className={classes.heroUnit}>
-          <div className={classes.heroContent}>
-            <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-              Mesh User Interface
-            </Typography>
-            <Typography variant="h6" align="center" color="textSecondary" paragraph>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi scelerisque,
-                orci a gravida porta, arcu diam aliquet dui, vitae ultrices arcu risus a tortor. 
-                Quisque eu eros vestibulum
-            </Typography>
-            <div className={classes.heroButtons}>
-              <Grid container spacing={16} justify="center">
-                <Grid item>
-                  <Button variant="contained" color="primary">
-                    Get started
+        <Header
+          brand="Meshui"
+          rightLinks={<HeaderLinks />}
+          fixed
+          color="transparent"
+          changeColorOnScroll={{
+            height: 400,
+            color: "white"
+          }}
+          {...rest}
+        />
+        {/* <Parallax image={require("assets/img/backgrounds/applause-arena-audience.jpg")}> */}
+        <Parallax image={require("assets/img/backgrounds/community-dark-full-moon.jpg")}>
+          <div className={classes.container}>
+            <GridContainer>
+              <GridItem xs={12} sm={12} md={6}>
+                <div className={classes.brand}>
+                  <h1 className={classes.title}>Meshui.</h1>
+                  <h4>
+                  Mesh User Interface.
+                  </h4>
+                </div>
+                <br />
+                <NavLink to="/login">
+                  <Button
+                    color="danger"
+                    size="lg"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <i className="fas fa-play" />Get started
                   </Button>
-                </Grid>
-                <Grid item>
-                  <Button variant="outlined" color="primary">
-                    More info
-                  </Button>
-                </Grid>
-              </Grid>
-            </div>
+                </NavLink>
+              </GridItem>
+            </GridContainer>
           </div>
+        </Parallax>
+
+        <div className={classNames(classes.main, classes.mainRaised)}>
+          <ProductSection />
+          <GreyBanner />
+          <SectionLink />
         </div>
-        
         <Footer />
       </div>
     );
   }
+}
 
-
-Homepage.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(Homepage);
+export default withStyles(componentsStyle)(Homepage);
