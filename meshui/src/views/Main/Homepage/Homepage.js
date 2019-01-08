@@ -1,16 +1,15 @@
 import React, { Component } from 'react'
 
-
-class Footer extends Component {
+class Homepage extends Component {
 
 
   render() {
     return (
       <div>
-        ================= Footer ADMIN
+        Homepage
       </div>
     )
   }
 }
 
-export default (Footer)
+export default Homepage

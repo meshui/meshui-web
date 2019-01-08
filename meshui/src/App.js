@@ -4,6 +4,8 @@ import { Redirect, BrowserRouter, Route, Switch } from 'react-router-dom'
 // Get route list
 import indexRoutes from "./routes/index.js";
 
+import "assets/scss/meshui.css?v=1.3.0"
+
 // Get route Layout
 const AppRoute = ({ component: Component, layout: Layout, ...rest }) => (
   <Route {...rest} render={props => (
