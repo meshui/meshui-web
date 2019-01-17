@@ -1,6 +1,7 @@
 
 export {
-  auth,
+  authEmail,
+  authGoogle,
   logout,
   setAuthRedirectPath,
   authCheckState,

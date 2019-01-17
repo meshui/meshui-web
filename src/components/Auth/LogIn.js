@@ -51,17 +51,17 @@ class LogIn extends Component {
     );
   }
 
-  submitHandler = (event) => {
-    console.log('dammmmmmmed')
+  emailLogInHandler = (event) => {
     event.preventDefault()
-    this.props.onAuth("hello", "hello", true)
+    // Log In
+    this.props.onAuthEmail("hello", "hello", true)
 
     this.setState(prevState => {
       return {isSignUp: !prevState.isSignUp}
     })
   }
 
-  googleSignUpHandler() {
+  googleLogInHandler = () => {
     // Check if already connected
     if (!this.app) {
       var config = {
@@ -80,20 +80,18 @@ class LogIn extends Component {
     var provider = new firebase.auth.GoogleAuthProvider()
     provider.addScope('https://www.googleapis.com/auth/contacts.readonly')
     // Sign in
-    this.app.auth().signInWithPopup(provider).then(function(result) {
+    this.app.auth().signInWithPopup(provider).then((result) => {
       // This gives you a Google Access Token. You can use it to access the Google API.
       var token = result.credential.accessToken;
       // The signed-in user info.
-      var user = result.user;
+      var user = result.user
       console.log("Connected")
       console.log(token)
       console.log(user)
       console.log(user.displayName)
-
-      this.setState(prevState => {
-        return {isSignUp: !prevState.isSignUp}
-      })
-    }).catch(function(error) {
+      // Log In
+      this.props.onAuthGoogle(user.email, true)
+    }).catch((error) => {
       // Handle Errors here.
       var errorCode = error.code;
       var errorMessage = error.message
@@ -114,11 +112,12 @@ class LogIn extends Component {
 
     let authRedirect = null
     if (this.props.isAuthenticated) {
-      authRedirect = <Redirect to="/" />
+      authRedirect = <Redirect to="/app" />
     }
 
     return (
       <Card>
+        {authRedirect}
         <CardHeader color="warning" className={classes.cardHeader}>
           <h4>Log In</h4>
           <div className={classes.socialLine}>
@@ -126,14 +125,14 @@ class LogIn extends Component {
               justIcon
               href="#pablo"
               color="info"
-              onClick={this.googleSignUpHandler.bind(this)}
+              onClick={this.googleLogInHandler}
             >
               <i className={"fab fa-google-plus-g"} />
             </Button>
           </div>
         </CardHeader>
         <p className={classes.divider}>Or</p>
-        <form onSubmit={this.submitHandler} className={classes.form}>
+        <form onSubmit={this.emailLogInHandler} className={classes.form}>
           <CardBody>
             <CustomInput
               labelText="Email..."
@@ -203,7 +202,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAuth: (email, password, isLogIn) => dispatch(actions.auth(email, password, isLogIn)),
+    onAuthEmail: (email, password, isLogIn) => dispatch(actions.authEmail(email, password, isLogIn)),
+    onAuthGoogle: (email, isLogIn) => dispatch(actions.authGoogle(email, isLogIn)),
     onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/'))
   }
 }
