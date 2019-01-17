@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 // @material-ui/core components
 import { Redirect, NavLink } from "react-router-dom";
 
@@ -25,7 +25,7 @@ import loginPageStyle from "assets/jss/meshui/views/logIn.js";
 
 import image from "assets/img/backgrounds/applause-arena-audience.jpg";
 
-class LogIn extends React.Component {
+class LogIn extends React {
   constructor(props) {
     super(props);
     // we use this to make the card to appear after the page has been rendered

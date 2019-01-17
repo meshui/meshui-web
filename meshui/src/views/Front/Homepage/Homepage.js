@@ -7,24 +7,21 @@ import { NavLink, Link } from "react-router-dom";
 import withStyles from "@material-ui/core/styles/withStyles";
 // @material-ui/icons
 // core components
-import Header from "components/UI/Header/Header";
-import Footer from "components/UI/Footer/Footer.jsx";
-import GridContainer from "components/UI/Grid/GridContainer.jsx";
-import GridItem from "components/UI/Grid/GridItem.jsx";
-import Button from "components/UI/CustomButtons/Button.jsx";
-import Parallax from "components/UI/Parallax/Parallax.jsx";
+import Header from "containers/Header/Header"
+import GridContainer from "components/UI/Grid/GridContainer";
+import GridItem from "components/UI/Grid/GridItem";
+import Button from "components/UI/CustomButtons/Button";
+import Parallax from "components/UI/Parallax/Parallax";
+
 // sections for this page
-import HeaderLinks from "components/UI/Header/HeaderLinks.jsx";
+import HeaderLinks from "containers/Header/HeaderLinks"
+import ProductSection from "components/Sections/ProductSection";
+import GreyBanner from "components/Sections/GreyBanner";
+import SectionLink from "components/Sections/SectionLink";
 
-import ProductSection from "./Sections/ProductSection.js";
-import GreyBanner from "./Sections/GreyBanner";
-import SectionLink from "./Sections/SectionLink";
+import componentsStyle from "assets/jss/meshui/views/components";
 
-
-import componentsStyle from "assets/jss/material-kit-react/views/components.jsx";
-
-class Homepage extends React {
-
+class Homepage extends Component {
   render() {
     const { classes, ...rest } = this.props;
     return (
@@ -40,7 +37,6 @@ class Homepage extends React {
           }}
           {...rest}
         />
-        {/* <Parallax image={require("assets/img/backgrounds/applause-arena-audience.jpg")}> */}
         <Parallax image={require("assets/img/backgrounds/community-dark-full-moon.jpg")}>
           <div className={classes.container}>
             <GridContainer>
@@ -57,8 +53,7 @@ class Homepage extends React {
                     color="danger"
                     size="lg"
                     target="_blank"
-                    rel="noopener noreferrer"
-                  >
+                    rel="noopener noreferrer">
                     <i className="fas fa-play" />Get started
                   </Button>
                 </NavLink>
@@ -66,15 +61,13 @@ class Homepage extends React {
             </GridContainer>
           </div>
         </Parallax>
-
         <div className={classNames(classes.main, classes.mainRaised)}>
           <ProductSection />
           <GreyBanner />
           <SectionLink />
         </div>
-        <Footer />
       </div>
-    );
+    )
   }
 }
 

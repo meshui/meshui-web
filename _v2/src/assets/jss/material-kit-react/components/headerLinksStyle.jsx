@@ -1,6 +1,6 @@
-import { defaultFont } from "assets/jss/meshui.js";
+import { defaultFont } from "assets/jss/material-kit-react.jsx";
 
-import tooltip from "assets/jss/meshui/tooltipsStyle.js";
+import tooltip from "assets/jss/material-kit-react/tooltipsStyle.js";
 
 const headerLinksStyle = theme => ({
   list: {

@@ -47,7 +47,7 @@ class Apps extends React.Component {
             </GridContainer>
           </div>
         </Parallax>
-
+          
         <div className={classNames(classes.main, classes.mainRaised)}>
           <ProductSection />
           {/* <SectionBasics />

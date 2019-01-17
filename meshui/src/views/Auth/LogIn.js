@@ -1,28 +1,32 @@
-import React from "react";
+import React from "react"
 // @material-ui/core components
-import { Redirect, NavLink } from "react-router-dom";
+import { Redirect, NavLink } from "react-router-dom"
 
-import withStyles from "@material-ui/core/styles/withStyles";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import Icon from "@material-ui/core/Icon";
+import withStyles from "@material-ui/core/styles/withStyles"
+import InputAdornment from "@material-ui/core/InputAdornment"
+import Icon from "@material-ui/core/Icon"
 // @material-ui/icons
-import Email from "@material-ui/icons/Email";
-import People from "@material-ui/icons/People";
+import Email from "@material-ui/icons/Email"
+import People from "@material-ui/icons/People"
 // core components
-import GridContainer from "components/UI/Grid/GridContainer.js";
-import GridItem from "components/UI/Grid/GridItem.js";
-import Button from "components/UI/CustomButtons/Button.js";
-import Card from "components/UI/Card/Card.js";
-import CardBody from "components/UI/Card/CardBody.js";
-import CardHeader from "components/UI/Card/CardHeader.js";
-import CardFooter from "components/UI/Card/CardFooter.js";
-import CustomInput from "components/UI/CustomInput/CustomInput.js";
+import GridContainer from "components/UI/Grid/GridContainer.js"
+import GridItem from "components/UI/Grid/GridItem.js"
+import Button from "components/UI/CustomButtons/Button.js"
+import Card from "components/UI/Card/Card.js"
+import CardBody from "components/UI/Card/CardBody.js"
+import CardHeader from "components/UI/Card/CardHeader.js"
+import CardFooter from "components/UI/Card/CardFooter.js"
+import CustomInput from "components/UI/CustomInput/CustomInput.js"
 
-import Footer from "containers/Footer/Footer.js";
+import Footer from "containers/Footer/Footer.js"
 
-import loginPageStyle from "assets/jss/meshui/views/logIn.js";
+import loginPageStyle from "assets/jss/meshui/views/logIn.js"
 
-import image from "assets/img/backgrounds/applause-arena-audience.jpg";
+import image from "assets/img/backgrounds/applause-arena-audience.jpg"
+
+
+var firebase = require("firebase/app")
+var firebaseui = require('firebaseui')
 
 class LogIn extends React.Component {
   constructor(props) {
@@ -41,6 +45,51 @@ class LogIn extends React.Component {
       700
     );
   }
+
+
+  googleSignUpHandler() {
+    var config = {
+      apiKey: "AIzaSyAg86MBwhXGz-7ID4bPiDyfUELYRBcaAzs",
+      authDomain: "meshui-dev.firebaseapp.com",
+      databaseURL: "https://meshui-dev.firebaseio.com",
+      projectId: "meshui-dev",
+      storageBucket: "meshui-dev.appspot.com",
+      messagingSenderId: "813157211196"
+    };
+
+    // Initialize firebase
+    var app = firebase.initializeApp(config)
+    // Initialize provider
+    var provider = new firebase.auth.GoogleAuthProvider()
+    provider.addScope('https://www.googleapis.com/auth/contacts.readonly')
+    // Sign in
+    app.auth().signInWithPopup(provider).then(function(result) {
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      var token = result.credential.accessToken;
+      // The signed-in user info.
+      var user = result.user;
+      console.log("Connected")
+      console.log(token)
+      console.log(user)
+      console.log(user.displayName)
+    }).catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      // The email of the user's account used.
+      var email = error.email;
+      // The firebase.auth.AuthCredential type that was used.
+      var credential = error.credential
+      console.log("Connection error")
+      console.log(errorCode, errorMessage)
+      console.log(error)
+      console.log(email)
+      console.log(credential)
+    })
+
+  }
+
+
   render() {
     const { classes } = this.props;
     return (
@@ -65,7 +114,7 @@ class LogIn extends React.Component {
                         href="#pablo"
                         target="_blank"
                         color="info"
-                        onClick={e => e.preventDefault()}
+                        onClick={this.googleSignUpHandler}
                       >
                         <i className={"fab fa-google-plus-g"} />
                       </Button>
