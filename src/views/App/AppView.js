@@ -18,10 +18,6 @@ import CardHeader from "components/UI/Card/CardHeader"
 import CardFooter from "components/UI/Card/CardFooter"
 import CustomInput from "components/UI/CustomInput/CustomInput"
 
-import Footer from "containers/Footer/Footer"
-
-import LogIn from "components/Auth/LogIn"
-
 import loginPageStyle from "assets/jss/meshui/views/logIn"
 
 import image from "assets/img/backgrounds/applause-arena-audience.jpg"
@@ -56,13 +52,8 @@ class AppView extends Component {
         }}
       >
         <div className={classes.container}>
-          <GridContainer justify="center">
-            <GridItem xs={12} sm={12} md={4}>
-              <LogIn />
-            </GridItem>
-          </GridContainer>
+          Hello your APP
         </div>
-        <Footer whiteFont />
       </div>
     );
   }

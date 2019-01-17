@@ -19,7 +19,6 @@ class App extends Component {
           brand="Meshui"
           rightLinks={<HeaderLinks />}
           fixed
-          color="transparent"
           changeColorOnScroll={{
             height: 400,
             color: "white"
@@ -27,7 +26,7 @@ class App extends Component {
           {...rest}
         />
 
-          {this.props.children}
+        {this.props.children}
         
         <Footer />
       </div>
