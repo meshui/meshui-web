@@ -1,22 +1,22 @@
-import React, { Component } from "react";
+import React, { Component } from "react"
 // nodejs library that concatenates classes
-import classNames from "classnames";
+import classNames from "classnames"
 // react components for routing our app without refresh
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom"
 // @material-ui/core components
-import withStyles from "@material-ui/core/styles/withStyles";
+import withStyles from "@material-ui/core/styles/withStyles"
 // @material-ui/icons
 // core components
 import Header from "containers/Header/Header"
-import GridContainer from "components/UI/Grid/GridContainer";
-import GridItem from "components/UI/Grid/GridItem";
-import Button from "components/UI/CustomButtons/Button";
-import Parallax from "components/UI/Parallax/Parallax";
+import GridContainer from "components/UI/Grid/GridContainer"
+import GridItem from "components/UI/Grid/GridItem"
+import Button from "components/UI/CustomButtons/Button"
+import Parallax from "components/UI/Parallax/Parallax"
 
 // sections for this page
 import HeaderLinks from "containers/Header/HeaderLinks"
 
-import componentsStyle from "assets/jss/meshui/views/components";
+import componentsStyle from "assets/jss/meshui/views/components"
 
 class Apps extends Component {
   render() {

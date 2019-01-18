@@ -78,6 +78,12 @@ class Sidebar extends Component {
     this.setState({ open: false });
   }
 
+  handleGroupsClick = () => {
+    this.setState(state => ({ 
+      openGroups: !state.openGroups,
+    }))
+  }
+
   handleOfficeClick = () => {
     this.setState(state => ({ 
       openOffice: !state.openOffice,

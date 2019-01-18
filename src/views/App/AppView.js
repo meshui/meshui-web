@@ -2,6 +2,8 @@ import React, { Component } from "react"
 // @material-ui/core components
 import { Redirect, NavLink } from "react-router-dom"
 
+import classNames from "classnames"
+
 import withStyles from "@material-ui/core/styles/withStyles"
 import InputAdornment from "@material-ui/core/InputAdornment"
 import Icon from "@material-ui/core/Icon"
@@ -18,7 +20,7 @@ import CardHeader from "components/UI/Card/CardHeader"
 import CardFooter from "components/UI/Card/CardFooter"
 import CustomInput from "components/UI/CustomInput/CustomInput"
 
-import loginPageStyle from "assets/jss/meshui/views/logIn"
+import componentsStyle from "assets/jss/meshui/views/components"
 
 import image from "assets/img/backgrounds/applause-arena-audience.jpg"
 
@@ -43,20 +45,13 @@ class AppView extends Component {
   render() {
     const { classes } = this.props;
     return (
-      <div
-        className={classes.pageHeader}
-        style={{
-          backgroundImage: "url(" + image + ")",
-          backgroundSize: "cover",
-          backgroundPosition: "top center"
-        }}
-      >
-        <div className={classes.container}>
-          Hello your APP
+      <div>
+         <div className={classNames(classes.main, classes.mainRaised)} style={{marginTop:'90px'}}>
+          Hello
         </div>
       </div>
     );
   }
 }
 
-export default withStyles(loginPageStyle)(AppView);
+export default withStyles(componentsStyle)(AppView);
